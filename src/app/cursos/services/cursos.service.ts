@@ -20,5 +20,24 @@ export class CursosService {
     );
   }
 
-  save(record: Curso){}
+  save(record: Partial <Curso>) {
+    return this.httpClient.post<Curso>(this.API, record).pipe(first());
+    //if (record._id) {
+     // return this.update(record);
+
+    //}
+     //return this.create(record);
+  }
+
+  private create(record: Partial<Curso>) {
+    return this.httpClient.post<Curso>(this.API, record).pipe(first());
+  }
+
+  private update(record: Partial<Curso>) {
+    return this.httpClient
+      .put<Curso>(`${this.API}/${record._id}`, record)
+      .pipe(first());
+  }
+
+
 }
