@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { CursosService } from '../services/cursos.service';
 import { Curso } from '../model/curso';
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-curso-form',
@@ -22,7 +24,8 @@ export class CursoFormComponent implements OnInit {
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
-    private service: CursosService
+    private service: CursosService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {}
@@ -31,8 +34,8 @@ export class CursoFormComponent implements OnInit {
     //
     this.service
       .save(this.form.value)
-      .subscribe((result) => console.log(result));
-    console.log(this.form.value);
+      .subscribe((result) => console.log(result), error => console.log(error));
+    //console.log(this.form.value);
   }
 
   onCancel() {}
